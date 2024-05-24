@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4" style="color:saddlebrown; font-weight:500;">Welcome to Agri Connect</h1>
+</div>
+<div class="container-lg CardArea">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Discussion Board</h5>
+            <p class="card-text">Converse, debate, and collaborate with fellow enthusiasts.</p>
+            <a class="btn btn-success" asp-area="" asp-controller="ForumEntries" asp-action="Index">Engage</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Store</h5>
+            <p class="card-text">A single destination for your farming and energy requirements.</p>
+            <a class="btn btn-success" asp-area="" asp-controller="Merchandises" asp-action="Index">Shop</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Campaigns</h5>
+            <p class="card-text">Participate and contribute to future campaigns to advance the agriculture and green energy sectors.</p>
+            <a class="btn btn-success" asp-area="" asp-controller="Campaigns" asp-action="Index">Participate</a>
+        </div>
+    </div>
+</div>

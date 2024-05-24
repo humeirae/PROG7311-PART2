@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AgriEnergyPOE.Models.ForumEntry>
+
+@{
+    ViewData["Title"] = "Agri Energy Forum";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Forum</h1>
+
+<p>
+    <a asp-action="Create">Post A Message</a>
+</p>
+
+<div class="SearchForm">
+    <form asp-area="" asp-controller="ForumEntries" asp-action="Search">
+        <input name="SearchText" class="form-control" style="border:black solid thin;" />
+        <input type="submit" value="Search" class="btn btn-success" />
+    </form>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EntrySubject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EntryContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntrySubject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryContent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishedDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EntryId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.EntryId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EntryId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
