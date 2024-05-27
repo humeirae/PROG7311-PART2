@@ -10,29 +10,35 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AgriEnergyPOE.Controllers
 {
-    [Authorize]
+    [Authorize] // Ensures that only authorized users can access this controller
     public class CampaignsController : Controller
     {
         private readonly Agri_Energy_DBContext _context;
 
+        // Constructor to initialize the database context
         public CampaignsController(Agri_Energy_DBContext context)
         {
             _context = context;
         }
 
         // GET: Campaigns
+        // Retrieves and displays a list of all campaigns
         public async Task<IActionResult> Index()
         {
             return View(await _context.Campaign.ToListAsync());
         }
 
         // Search Function
+        // Searches for campaigns based on the provided search text
         public async Task<IActionResult> Search(string searchText)
         {
-            return View("Index", await _context.Campaign.Where(c => c.CampaignSummary.Contains(searchText) || c.CampaignTitle.Contains(searchText)).ToListAsync());
+            return View("Index", await _context.Campaign
+                .Where(c => c.CampaignSummary.Contains(searchText) || c.CampaignTitle.Contains(searchText))
+                .ToListAsync());
         }
 
         // GET: Campaigns/Details/5
+        // Displays the details of a specific campaign based on its ID
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,6 +57,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // GET: Campaigns/Create
+        // Displays the form for creating a new campaign
         [Authorize]
         public IActionResult Create()
         {
@@ -58,8 +65,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // POST: Campaigns/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Handles the form submission for creating a new campaign
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -75,6 +81,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // GET: Campaigns/Edit/5
+        // Displays the form for editing an existing campaign
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -92,8 +99,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // POST: Campaigns/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Handles the form submission for editing an existing campaign
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -128,6 +134,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // GET: Campaigns/Delete/5
+        // Displays the confirmation page for deleting a campaign
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -147,6 +154,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // POST: Campaigns/Delete/5
+        // Handles the form submission for deleting a campaign
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -162,6 +170,7 @@ namespace AgriEnergyPOE.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Checks if a campaign exists based on its ID
         private bool CampaignExists(int id)
         {
             return _context.Campaign.Any(e => e.CampaignId == id);
