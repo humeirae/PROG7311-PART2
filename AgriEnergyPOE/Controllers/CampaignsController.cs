@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AgriEnergyPOE.Controllers
 {
+    [Authorize]
     public class CampaignsController : Controller
     {
         private readonly Agri_Energy_DBContext _context;

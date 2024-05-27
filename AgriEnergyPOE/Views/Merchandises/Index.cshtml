@@ -57,9 +57,9 @@
                             @Html.DisplayFor(modelItem => item.ContactNumber)
                         </td>
                         <td class="text-end">
-                            <a class="btn btn-outline-secondary btn-sm" asp-action="Edit" asp-route-id="@item.MerchandiseId">Edit</a>
-                            <a class="btn btn-outline-primary btn-sm" asp-action="Details" asp-route-id="@item.MerchandiseId">Details</a>
-                            <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.MerchandiseId">Delete</a>
+                            <a class="btn btn-outline-secondary btn-sm" asp-action="Edit" button style="margin:5px" asp-route-id="@item.MerchandiseId">Edit</a>
+                            <a class="btn btn-outline-primary btn-sm" asp-action="Details" button style="margin:5px" asp-route-id="@item.MerchandiseId">Details</a>
+                            <a class="btn btn-outline-danger btn-sm" asp-action="Delete" button style="margin:5px" asp-route-id="@item.MerchandiseId">Delete</a>
                         </td>
                     </tr>
                 }

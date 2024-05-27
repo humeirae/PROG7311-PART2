@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 
 namespace AgriEnergyPOE.Controllers
 {
+    [Authorize]
     public class ForumEntriesController : Controller
     {
         private readonly Agri_Energy_DBContext _context;

@@ -226,6 +226,16 @@ namespace AgriEnergyPOE.Controllers
             return View(user);
         }
 
+        //for users to logout
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear(); // Clear session data
+            return RedirectToAction("Login", "Users");
+        }
+
     }
 }
 
