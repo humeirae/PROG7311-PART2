@@ -1,60 +1,70 @@
 ﻿@model IEnumerable<AgriEnergyPOE.Models.Merchandise>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Merchandise";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h1 class="display-4" style="color:darkorange; font-weight:500;">Merchandise Store</h1>
+        <p class="lead">Discover and purchase green energy solutions tailored for agricultural needs.</p>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MerchandiseName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MerchandiseDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ManufactureDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MerchandiseCost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContactNumber)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MerchandiseName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MerchandiseDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ManufactureDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MerchandiseCost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContactNumber)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.MerchandiseId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MerchandiseId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MerchandiseId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="mb-3 text-end">
+        <a class="btn btn-primary" asp-action="Create">Create New Merchandise</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MerchandiseName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MerchandiseDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ManufactureDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MerchandiseCost)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ContactNumber)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MerchandiseName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MerchandiseDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ManufactureDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MerchandiseCost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContactNumber)
+                        </td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-secondary btn-sm" asp-action="Edit" asp-route-id="@item.MerchandiseId">Edit</a>
+                            <a class="btn btn-outline-primary btn-sm" asp-action="Details" asp-route-id="@item.MerchandiseId">Details</a>
+                            <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.MerchandiseId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

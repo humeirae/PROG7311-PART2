@@ -1,57 +1,67 @@
 ﻿@model IEnumerable<AgriEnergyPOE.Models.Campaign>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml"; 
+    ViewData["Title"] = "Campaigns";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h1 class="display-4" style="color:darkorange; font-weight:500;">Campaigns</h1>
+        <p class="lead">Join, support, and collaborate on various campaigns for sustainable agriculture and green energy.</p>
+    </div>
 
-<div class="SearchForm">
-    <form asp-controller="Campaigns" asp-action="Search">
-        <!-- Updated to use the Campaigns controller -->
-        <input name="SearchText" class="form-control" style="border:black solid thin;" />
-        <input type="submit" value="Search" class="btn btn-success" />
-    </form>
+    <div class="mb-3 text-end">
+        <a class="btn btn-primary" asp-action="Create">Create New Campaign</a>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-8 offset-md-2">
+            <form asp-controller="Campaigns" asp-action="Search" class="input-group">
+                <input name="SearchText" class="form-control" placeholder="Search campaigns..." style="border: 2px solid forestgreen;" />
+                <button type="submit" class="btn btn-success">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CampaignTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CampaignSummary)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CoordinatorContact)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CampaignTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CampaignSummary)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CoordinatorContact)
+                        </td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-secondary btn-sm" asp-action="Edit" asp-route-id="@item.CampaignId">Edit</a>
+                            <a class="btn btn-outline-primary btn-sm" asp-action="Details" asp-route-id="@item.CampaignId">Details</a>
+                            <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.CampaignId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CampaignTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CampaignSummary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CoordinatorContact)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CampaignTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CampaignSummary)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CoordinatorContact)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.CampaignId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.CampaignId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CampaignId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>

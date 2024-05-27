@@ -5,56 +5,64 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Forum</h1>
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h1 class="display-4" style="color:darkorange; font-weight:500;">Agri Energy Forum</h1>
+        <p class="lead">Join the discussion, share your knowledge, and connect with others in the community.</p>
+    </div>
 
-<p>
-    <a asp-action="Create">Post A Message</a>
-</p>
+    <div class="mb-3 text-end">
+        <a class="btn btn-primary" asp-action="Create">Post A Message</a>
+    </div>
 
-<div class="SearchForm">
-    <form asp-area="" asp-controller="ForumEntries" asp-action="Search">
-        <input name="SearchText" class="form-control" style="border:black solid thin;" />
-        <input type="submit" value="Search" class="btn btn-success" />
-    </form>
+    <div class="row mb-4">
+        <div class="col-md-8 offset-md-2">
+            <form asp-area="" asp-controller="ForumEntries" asp-action="Search" class="input-group">
+                <input name="SearchText" class="form-control" placeholder="Search forum..." style="border: 2px solid forestgreen;" />
+                <button type="submit" class="btn btn-success">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EntrySubject)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EntryContent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PublishedDate)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EntrySubject)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EntryContent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PublishedDate)
+                        </td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-secondary btn-sm" asp-action="Edit" asp-route-id="@item.EntryId">Edit</a>
+                            <a class="btn btn-outline-primary btn-sm" asp-action="Details" asp-route-id="@item.EntryId">Details</a>
+                            <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.EntryId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EntrySubject)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EntryContent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PublishedDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EntrySubject)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EntryContent)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PublishedDate)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.EntryId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.EntryId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.EntryId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 
