@@ -10,23 +10,26 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AgriEnergyPOE.Controllers
 {
-    [Authorize]
+    [Authorize] // Ensures that only authorized users can access this controller
     public class MerchandisesController : Controller
     {
         private readonly Agri_Energy_DBContext _context;
 
+        // Constructor to initialize the database context
         public MerchandisesController(Agri_Energy_DBContext context)
         {
             _context = context;
         }
 
         // GET: Merchandises
+        // Action to display the list of merchandises
         public async Task<IActionResult> Index()
         {
             return View(await _context.Merchandise.ToListAsync());
         }
 
         // GET: Merchandises/Details/5
+        // Action to display the details of a specific merchandise
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,6 +48,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // GET: Merchandises/Create
+        // Action to display the create merchandise form
         [Authorize]
         public IActionResult Create()
         {
@@ -52,8 +56,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // POST: Merchandises/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Action to handle the creation of a new merchandise
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,6 +72,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // GET: Merchandises/Edit/5
+        // Action to display the edit merchandise form
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,8 +89,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // POST: Merchandises/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Action to handle the updating of an existing merchandise
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -121,6 +124,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // GET: Merchandises/Delete/5
+        // Action to display the delete merchandise confirmation page
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,6 +143,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // POST: Merchandises/Delete/5
+        // Action to handle the deletion of a merchandise
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -154,14 +159,14 @@ namespace AgriEnergyPOE.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Method to check if a merchandise exists by ID
         private bool MerchandiseExists(int id)
         {
             return _context.Merchandise.Any(e => e.MerchandiseId == id);
         }
 
-        // Additional methods from ProductsController
-
         // Search functionality
+        // Action to handle the search for merchandises
         public async Task<IActionResult> Search(string SearchText)
         {
             return View("Index", await _context.Merchandise.Where(i => i.MerchandiseDescription.Contains(SearchText) || i.MerchandiseName.Contains(SearchText)).ToListAsync());

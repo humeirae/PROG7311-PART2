@@ -15,18 +15,21 @@ namespace AgriEnergyPOE.Controllers
     {
         private readonly Agri_Energy_DBContext _context;
 
+        // Constructor to initialize the database context
         public UsersController(Agri_Energy_DBContext context)
         {
             _context = context;
         }
 
         // GET: Users
+        // Action to display the list of users
         public async Task<IActionResult> Index()
         {
             return View(await _context.Users.ToListAsync());
         }
 
         // GET: Users/Details/5
+        // Action to display the details of a specific user
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,12 +48,14 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // GET: Users/Create
+        // Action to display the create user form
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Users/Create
+        // Action to handle the creation of a new user
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserId,Username,PasswordHash,Email,FullName")] User user)
@@ -65,6 +70,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // GET: Users/Edit/5
+        // Action to display the edit user form
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,6 +87,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // POST: Users/Edit/5
+        // Action to handle the updating of an existing user
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,PasswordHash,Email,FullName")] User user)
@@ -114,6 +121,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // GET: Users/Delete/5
+        // Action to display the delete user confirmation page
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,6 +140,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // POST: Users/Delete/5
+        // Action to handle the deletion of a user
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -146,13 +155,14 @@ namespace AgriEnergyPOE.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Method to check if a user exists by ID
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserId == id);
         }
 
-
         // GET: Users/Login
+        // Action to display the login form
         [HttpGet]
         public IActionResult Login()
         {
@@ -160,6 +170,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // POST: Users/Login
+        // Action to handle the user login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string Username, string PasswordHash)
@@ -189,6 +200,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // GET: Users/Register
+        // Action to display the registration form
         [HttpGet]
         public IActionResult Register()
         {
@@ -196,6 +208,7 @@ namespace AgriEnergyPOE.Controllers
         }
 
         // POST: Users/Register
+        // Action to handle the user registration
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Username,PasswordHash,Email,FullName,ConfirmPassword")] User user)
@@ -226,16 +239,5 @@ namespace AgriEnergyPOE.Controllers
             return View(user);
         }
 
-        //for users to logout
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Clear(); // Clear session data
-            return RedirectToAction("Login", "Users");
-        }
-
     }
 }
-
