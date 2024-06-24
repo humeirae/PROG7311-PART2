@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AgriEnergyPOE.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace AgriEnergyPOE.Controllers
 {
-    [Authorize] // Ensures that only authorized users can access this controller
+    [Authorize]
     public class MerchandisesController : Controller
     {
         private readonly Agri_Energy_DBContext _context;
 
-        // Constructor to initialize the database context
         public MerchandisesController(Agri_Energy_DBContext context)
         {
             _context = context;
@@ -25,7 +22,21 @@ namespace AgriEnergyPOE.Controllers
         // Action to display the list of merchandises
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Merchandise.ToListAsync());
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            if (userRole == "Employee")
+            {
+                // Get all products
+                return View(await _context.Merchandise.ToListAsync());
+            }
+            else if (userRole == "Farmer")
+            {
+                // Get products for the logged-in farmer
+                return View(await _context.Merchandise.Where(m => m.FarmerId == userId).ToListAsync());
+            }
+
+            return Unauthorized(); // Return unauthorized if user's role is not recognized
         }
 
         // GET: Merchandises/Details/5
