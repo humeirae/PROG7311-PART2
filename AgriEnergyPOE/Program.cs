@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using AgriEnergyPOE.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace AgriEnergyPOE
 {
@@ -17,6 +18,9 @@ namespace AgriEnergyPOE
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<Agri_Energy_DBContext>(options =>
                 options.UseSqlServer(connectionString));
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<Agri_Energy_DBContext>();
 
             // Add authentication
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
