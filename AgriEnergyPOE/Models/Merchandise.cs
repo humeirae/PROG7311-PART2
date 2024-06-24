@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AgriEnergyPOE.Models;
@@ -31,4 +32,9 @@ public partial class Merchandise
     [Required]
     [StringLength(15)]
     public string ContactNumber { get; set; }
+
+    public string FarmerId { get; set; }
+    [ForeignKey("FarmerId")]
+    public IdentityUser Farmer { get; set; }
+
 }
