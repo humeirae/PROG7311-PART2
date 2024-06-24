@@ -1,5 +1,6 @@
 # Agri-Energy Connect
 Welcome to Agri-Energy Connect, an innovative web platform designed to bridge the gap between the agricultural sector and green energy technology providers in South Africa. This initiative aims to foster collaboration, resource sharing, and innovation in sustainable agriculture and renewable energy.
+Video Link: https://youtu.be/EgP58xR2d9E
 
 ## Requirements:
 To edit the code, you will need to download Visual Studio. To download it, click on this link https://visualstudio.microsoft.com/downloads/.
